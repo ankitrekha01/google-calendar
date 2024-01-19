@@ -3,7 +3,7 @@ const app = express();
 const dotenv = require("dotenv");
 dotenv.config();
 const { google } = require("googleapis");
-const {getAllEvents,getExisitingMeets,getMeetings} = require("./meetings");
+const { getAllEvents, getExisitingMeets, getMeetings } = require("./meetings");
 
 app.use(express.json());
 
@@ -43,7 +43,7 @@ app.get("/allevent", async (req, res) => {
   if (token) {
     oauth2Client.setCredentials(token);
     // console.log(allEvents);
-    const events = await getAllEvents(calendar,oauth2Client);
+    const events = await getAllEvents(calendar, oauth2Client);
     console.log(events);
     res.send("Working");
   }
@@ -53,19 +53,27 @@ app.post("/create-event", async (req, res) => {
   let { startTime, endTime, timezone, duration } = req.body;
   startTime = new Date(2024, 0, 19, 8, 0, 0);
   // endTime = new Date(startTime.getTime() + 1 * 60 * 30 * 1000);
-  endTime =new Date(2024, 0, 19, 23, 0, 0);
+  endTime = new Date(2024, 0, 19, 23, 0, 0);
   if (token) {
     oauth2Client.setCredentials(token);
     const event = await getAllEvents(calendar, oauth2Client);
     const existing = getExisitingMeets(event);
     console.log(existing);
-    console.log(getMeetings(startTime,endTime,15,existing.existingStartTime,existing.existingEndTime));
+    console.log(
+      getMeetings(
+        startTime,
+        endTime,
+        15,
+        existing.existingStartTime,
+        existing.existingEndTime
+      )
+    );
 
-    res.send('wrking');
+    res.send("wrking");
   }
 });
 
-app.post("/fix-meeting",async(req,res)=>{
+app.post("/fix-meeting", async (req, res) => {
   const response = await calendar.events.insert({
     auth: oauth2Client,
     calendarId: "primary",
@@ -81,7 +89,7 @@ app.post("/fix-meeting",async(req,res)=>{
     },
   });
   res.send("Meeting made");
-})
+});
 
 app.listen(PORT, () => {
   console.log(`Server is listening to PORT:${PORT}`);
