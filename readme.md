@@ -15,13 +15,12 @@ Before running the application, make sure you have the following:
 1. Clone the repository:
 
     ```bash
-    git clone https://github.com/yourusername/your-repo.git
+    git clone https://github.com/ankitrekha01/google-calendar.git
     ```
 
 2. Install dependencies:
 
     ```bash
-    cd your-repo
     npm install
     ```
 
