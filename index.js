@@ -49,7 +49,7 @@ app.get("/allevent", async (req, res) => {
   }
 });
 
-app.get("/create-event", async (req, res) => {
+app.post("/create-event", async (req, res) => {
   let { startTime, endTime, timezone, duration } = req.body;
   startTime = new Date(2024, 0, 19, 8, 0, 0);
   // endTime = new Date(startTime.getTime() + 1 * 60 * 30 * 1000);
